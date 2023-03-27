@@ -1,6 +1,7 @@
 package com.patrik.joacim.Workschedule.controller;
 
 
+import com.patrik.joacim.Workschedule.model.Course;
 import com.patrik.joacim.Workschedule.model.Employee;
 import com.patrik.joacim.Workschedule.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "http://127.0.0.1:5500/")
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
@@ -53,4 +55,6 @@ public class EmployeeController {
     void deleteEmployee(@PathVariable Long id) {
         employeeRepository.deleteById(id);
     }
+
+
 }

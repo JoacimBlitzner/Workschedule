@@ -1,6 +1,8 @@
 package com.patrik.joacim.Workschedule.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -15,14 +17,23 @@ public class Employee {
     @Column(name = "worktime")
     private int workTime;
 
+    @OneToMany(mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @Column(name = "course")
+    private List<Course> courses = new ArrayList<>();
+
     public Employee() {
     }
 
-    public Employee(long employeeId, String firstName, String lastName, int workTime) {
+    public Employee(long employeeId, String firstName, String lastName, int workTime, List<Course> courses) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.workTime = workTime;
+        this.courses = courses;
     }
 
     public long getEmployeeId() {
@@ -55,6 +66,14 @@ public class Employee {
 
     public void setWorkTime(int workTime) {
         this.workTime = workTime;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     @Override

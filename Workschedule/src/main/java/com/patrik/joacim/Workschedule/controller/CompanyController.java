@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "http://127.0.0.1:5500/")
 public class CompanyController {
 
     private final CompanyRepository companyRepository;
@@ -39,10 +40,8 @@ public class CompanyController {
         return companyRepository.findById(id)
                 .map(company -> {
                     company.setCompanyName(newCompany.getCompanyName());
-                    company.setCourse(newCompany.getCourse());
-                    company.setWorkHour(newCompany.getWorkHour());
-                    company.setStartDate(newCompany.getStartDate());
-                    company.setStopDate(newCompany.getStopDate());
+                    company.setAddress(newCompany.getAddress());
+                    company.setContact(newCompany.getContact());
                     return companyRepository.save(company);
                 })
                 .orElseGet(() -> {

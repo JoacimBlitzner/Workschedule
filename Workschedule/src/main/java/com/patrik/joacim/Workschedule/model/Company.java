@@ -4,6 +4,8 @@ package com.patrik.joacim.Workschedule.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -12,25 +14,31 @@ public class Company {
     private long companyId;
     @Column(name = "companyname")
     private String companyName;
+
+    @Column(name = "address")
+    private String address;
+    @Column(name = "contact")
+    private String contact;
+
+    @OneToMany(mappedBy = "company",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
     @Column(name = "course")
-    private String course;
-    @Column(name = "workhour")
-    private int workHour;
-    @Column(name = "startdate")
-    private LocalDate startDate;
-    @Column(name = "stopdate")
-    private LocalDate stopDate;
+    private List<Course> courses = new ArrayList<>();
+
+
 
     public Company() {
     }
 
-    public Company(long companyId, String companyName, String course, int workHour, LocalDate startDate, LocalDate stopDate) {
+    public Company(long companyId, String companyName, String address, String contact, List<Course> courses) {
         this.companyId = companyId;
         this.companyName = companyName;
-        this.course = course;
-        this.workHour = workHour;
-        this.startDate = startDate;
-        this.stopDate = stopDate;
+        this.address = address;
+        this.contact = contact;
+        this.courses = courses;
     }
 
     public long getCompanyId() {
@@ -49,36 +57,28 @@ public class Company {
         this.companyName = companyName;
     }
 
-    public String getCourse() {
-        return course;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getWorkHour() {
-        return workHour;
+    public String getContact() {
+        return contact;
     }
 
-    public void setWorkHour(int workHour) {
-        this.workHour = workHour;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getStopDate() {
-        return stopDate;
-    }
-
-    public void setStopDate(LocalDate stopDate) {
-        this.stopDate = stopDate;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     @Override
@@ -86,10 +86,8 @@ public class Company {
         return "Company{" +
                 "companyId=" + companyId +
                 ", companyName='" + companyName + '\'' +
-                ", course='" + course + '\'' +
-                ", workHour=" + workHour +
-                ", startDate=" + startDate +
-                ", stopDate=" + stopDate +
+                ", address='" + address + '\'' +
+                ", contact='" + contact + '\'' +
                 '}';
     }
 }
