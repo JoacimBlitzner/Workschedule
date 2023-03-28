@@ -14,6 +14,9 @@ public class Course {
 
     @Column(name = "coursename")
     private String courseName;
+
+    @Column(name = "courseclass")
+    private String courseClass;
     @Column(name = "workhour")
     private int workHour;
     @Column(name = "startdate")
@@ -32,9 +35,10 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long courseId, String courseName, int workHour, LocalDate startDate, LocalDate stopDate, Company company, Employee employee) {
+    public Course(Long courseId, String courseName, String courseClass, int workHour, LocalDate startDate, LocalDate stopDate, Company company, Employee employee) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.courseClass = courseClass;
         this.workHour = workHour;
         this.startDate = startDate;
         this.stopDate = stopDate;
@@ -52,6 +56,14 @@ public class Course {
 
     public String getCourseName() {
         return courseName;
+    }
+
+    public String getCourseClass() {
+        return courseClass;
+    }
+
+    public void setCourseClass(String courseClass) {
+        this.courseClass = courseClass;
     }
 
     public void setCourseName(String courseName) {
@@ -103,6 +115,7 @@ public class Course {
         return "Course{" +
                 "courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
+                ", courseClass='" + courseClass + '\'' +
                 ", workHour=" + workHour +
                 ", startDate=" + startDate +
                 ", stopDate=" + stopDate +

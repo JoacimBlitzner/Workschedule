@@ -2,7 +2,9 @@ package com.patrik.joacim.Workschedule.controller;
 
 
 import com.patrik.joacim.Workschedule.model.Company;
+import com.patrik.joacim.Workschedule.model.Course;
 import com.patrik.joacim.Workschedule.repository.CompanyRepository;
+import com.patrik.joacim.Workschedule.repository.CourseRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyRepository companyRepository;
+    private final CourseRepository courseRepository;
 
-    CompanyController(CompanyRepository companyRepository){
+    CompanyController(CompanyRepository companyRepository, CourseRepository courseRepository){
         this.companyRepository=companyRepository;
+        this.courseRepository=courseRepository;
     }
 
     @GetMapping("/company")
@@ -53,5 +57,11 @@ public class CompanyController {
     @DeleteMapping("/company/{id}")
     void deleteCompany(@PathVariable Long id) {
         companyRepository.deleteById(id);
+    }
+
+    @GetMapping("/company/companycourse/{id}")
+    public List<Course> history(@PathVariable("id") Long id){
+        List<Course> course= courseRepository.findCourseByCompany_CompanyId(id);
+        return courseRepository.findCourseByCompany_CompanyId(id);
     }
 }
