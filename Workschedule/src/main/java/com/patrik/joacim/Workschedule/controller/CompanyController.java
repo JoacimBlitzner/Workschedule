@@ -61,7 +61,6 @@ public class CompanyController {
 
     @GetMapping("/company/companycourse/{id}")
     public List<Course> history(@PathVariable("id") Long id){
-        List<Course> course= courseRepository.findCourseByCompany_CompanyId(id);
         return courseRepository.findCourseByCompany_CompanyId(id);
     }
 }

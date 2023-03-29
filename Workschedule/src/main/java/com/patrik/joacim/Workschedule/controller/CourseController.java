@@ -1,8 +1,12 @@
 package com.patrik.joacim.Workschedule.controller;
 
 
+import com.patrik.joacim.Workschedule.model.Company;
 import com.patrik.joacim.Workschedule.model.Course;
+import com.patrik.joacim.Workschedule.model.Employee;
+import com.patrik.joacim.Workschedule.repository.CompanyRepository;
 import com.patrik.joacim.Workschedule.repository.CourseRepository;
+import com.patrik.joacim.Workschedule.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +16,14 @@ import java.util.List;
 public class CourseController {
 
     private final CourseRepository courseRepository;
+    private final EmployeeRepository employeeRepository;
 
-    CourseController(CourseRepository courseRepository){
+    private final CompanyRepository companyRepository;
+
+    CourseController(CourseRepository courseRepository, EmployeeRepository employeeRepository, CompanyRepository companyRepository){
         this.courseRepository=courseRepository;
+        this.employeeRepository=employeeRepository;
+        this.companyRepository=companyRepository;
     }
 
     @GetMapping("/course")
@@ -24,6 +33,10 @@ public class CourseController {
 
     @PostMapping("/addcourse")
     Course newCourse(@RequestBody Course newCourse){
+        Employee employee = employeeRepository.findById(newCourse.getEmployee().getEmployeeId()).orElseThrow(() -> new RuntimeException("EMP i course"));
+        Company company = companyRepository.findById(newCourse.getCompany().getCompanyId()).orElseThrow(() -> new RuntimeException("COMPANY i course"));
+        newCourse.setEmployee(employee);
+        newCourse.setCompany(company);
         return courseRepository.save(newCourse);
     }
 
