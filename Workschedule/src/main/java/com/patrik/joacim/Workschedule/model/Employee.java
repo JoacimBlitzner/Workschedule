@@ -1,5 +1,8 @@
 package com.patrik.joacim.Workschedule.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ public class Employee {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
+//    @JsonManagedReference(value = "employee-course")
     @Column(name = "course")
     private List<Course> courses = new ArrayList<>();
 
@@ -83,6 +88,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", workTime=" + workTime +
+                ", courses=" + courses +
                 '}';
     }
 }

@@ -28,8 +28,12 @@ public class CourseController {
 
     @GetMapping("/course")
     List<Course> all(){
+        List<Course>courses = courseRepository.findAll();
+        System.out.println(courses);
         return courseRepository.findAll();
+
     }
+
 
     @PostMapping("/addcourse")
     Course newCourse(@RequestBody Course newCourse){
@@ -53,10 +57,12 @@ public class CourseController {
         return courseRepository.findById(id)
                 .map(course -> {
                     course.setCourseName(newCourse.getCourseName());
+                    course.setCourseClass(newCourse.getCourseClass());
                     course.setWorkHour(newCourse.getWorkHour());
                     course.setStartDate(newCourse.getStartDate());
                     course.setStopDate(newCourse.getStopDate());
-
+                    course.setCompany(newCourse.getCompany());
+                    course.setEmployee(newCourse.getEmployee());
                     return courseRepository.save(course);
                 })
                 .orElseGet(() -> {
@@ -65,8 +71,23 @@ public class CourseController {
                 });
     }
 
+
     @DeleteMapping("/course/{id}")
     void deleteCourse(@PathVariable Long id) {
         courseRepository.deleteById(id);
+    }
+
+
+    @PutMapping("/courseaddemp/{id}")
+    Course addEmp(@RequestBody Course newCourse, @PathVariable Long id) {
+        return courseRepository.findById(id)
+                .map(course -> {
+                    course.setEmployee(newCourse.getEmployee());
+                    return courseRepository.save(course);
+                })
+                .orElseGet(() -> {
+                    newCourse.setCourseId(id);
+                    return courseRepository.save(newCourse);
+                });
     }
 }

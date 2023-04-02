@@ -29,7 +29,7 @@ public class Course {
     private Company company;
 
     @ManyToOne()
-    @JsonBackReference(value = "employee-course")
+//    @JsonBackReference(value = "employee-course")
     private Employee employee;
 
     public Course() {
@@ -119,8 +119,6 @@ public class Course {
                 ", workHour=" + workHour +
                 ", startDate=" + startDate +
                 ", stopDate=" + stopDate +
-                ", company=" + company +
-                ", employee=" + employee +
                 '}';
     }
 }

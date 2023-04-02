@@ -2,6 +2,11 @@ package com.patrik.joacim.Workschedule.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ public class Company {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference(value = "company-course")
     @Column(name = "course")
     private List<Course> courses = new ArrayList<>();
 
@@ -88,6 +94,7 @@ public class Company {
                 ", companyName='" + companyName + '\'' +
                 ", address='" + address + '\'' +
                 ", contact='" + contact + '\'' +
+                ", courses=" + courses +
                 '}';
     }
 }
