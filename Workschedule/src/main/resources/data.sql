@@ -1,7 +1,7 @@
-INSERT INTO EMPLOYEE(firstname, lastname, worktime)
-VALUES ('Kalle', 'Anka', 40),
-       ('Bengt', 'Bengtsson', 76),
-       ('Stina', 'Karlsson', 100);
+INSERT INTO EMPLOYEE(firstname, lastname, worktime, active)
+VALUES ('Kalle', 'Anka', 40, true),
+       ('Bengt', 'Bengtsson', 76, false),
+       ('Stina', 'Karlsson', 100, true);
 INSERT INTO COMPANY(companyname, address, contact)
 VALUES ('YA','Skogsvägen', 'Gudrun' ),
        ('Kth', 'Isgatan', 'Fritjof');

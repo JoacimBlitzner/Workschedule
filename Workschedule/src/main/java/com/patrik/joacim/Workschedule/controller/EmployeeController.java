@@ -1,7 +1,6 @@
 package com.patrik.joacim.Workschedule.controller;
 
 
-import com.patrik.joacim.Workschedule.model.Course;
 import com.patrik.joacim.Workschedule.model.Employee;
 import com.patrik.joacim.Workschedule.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,7 @@ public class EmployeeController {
 
     @PostMapping("/addemployees")
     Employee newEmployee(@RequestBody Employee newEmployee){
+        newEmployee.setActive(true);
         return employeeRepository.save(newEmployee);
     }
 
@@ -43,12 +43,14 @@ public class EmployeeController {
                     employee.setFirstName(newEmployee.getFirstName());
                     employee.setLastName(newEmployee.getLastName());
                     employee.setWorkTime(newEmployee.getWorkTime());
+                    employee.setActive(newEmployee.isActive());
                     return employeeRepository.save(employee);
                 })
-                .orElseGet(() -> {
-                    newEmployee.setEmployeeId(id);
-                    return employeeRepository.save(newEmployee);
-                });
+                .orElseThrow(() -> new RuntimeException("Det finns ingen användare med det ID"));
+//                .orElseGet(() -> {
+//                    newEmployee.setEmployeeId(id);
+//                    return employeeRepository.save(newEmployee);
+//                });
     }
 
     @DeleteMapping("/employees/{id}")
