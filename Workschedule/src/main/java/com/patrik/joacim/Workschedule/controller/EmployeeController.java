@@ -24,7 +24,7 @@ public class EmployeeController {
 
     @PostMapping("/addemployees")
     Employee newEmployee(@RequestBody Employee newEmployee){
-        newEmployee.setActive(true);
+       newEmployee.setActive(true);
         return employeeRepository.save(newEmployee);
     }
 
@@ -46,7 +46,7 @@ public class EmployeeController {
                     employee.setActive(newEmployee.isActive());
                     return employeeRepository.save(employee);
                 })
-                .orElseThrow(() -> new RuntimeException("Det finns ingen användare med det ID"));
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
 //                .orElseGet(() -> {
 //                    newEmployee.setEmployeeId(id);
 //                    return employeeRepository.save(newEmployee);

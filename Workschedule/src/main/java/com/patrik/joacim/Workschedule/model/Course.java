@@ -29,8 +29,9 @@ public class Course {
     private Company company;
 
     @ManyToOne()
-//    @JsonBackReference(value = "employee-course")
     private Employee employee;
+
+
 
     public Course() {
     }
@@ -58,16 +59,16 @@ public class Course {
         return courseName;
     }
 
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
     public String getCourseClass() {
         return courseClass;
     }
 
     public void setCourseClass(String courseClass) {
         this.courseClass = courseClass;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
     }
 
     public int getWorkHour() {
