@@ -65,6 +65,7 @@ public class CourseController {
                     course.setStopDate(newCourse.getStopDate());
                     course.setCompany(newCourse.getCompany());
                     course.setEmployee(newCourse.getEmployee());
+                    course.setCoursebooked(newCourse.isCoursebooked());
                     return courseRepository.save(course);
                 })
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
