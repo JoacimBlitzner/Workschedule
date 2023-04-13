@@ -22,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    List<Employee> all(){
+    List<Employee> allEmployees(){
         return employeeRepository.findAll();
     }
 
@@ -33,14 +33,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    Employee one(@PathVariable Long id) {
+    Employee oneEmployee(@PathVariable Long id) {
 
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @PutMapping("/employees/{id}")
-    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+    Employee editEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
 
         return employeeRepository.findById(id)
                 .map(employee -> {
@@ -51,10 +51,7 @@ public class EmployeeController {
                     return employeeRepository.save(employee);
                 })
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
-//                .orElseGet(() -> {
-//                    newEmployee.setEmployeeId(id);
-//                    return employeeRepository.save(newEmployee);
-//                });
+
     }
 
     @DeleteMapping("/employees/{id}")
@@ -63,7 +60,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/employeecourse/{id}")
-    public List<Course> history(@PathVariable("id") Long id){
+    public List<Course> employeeCourse(@PathVariable("id") Long id){
         return courseRepository.findCourseByEmployee_EmployeeId(id);
     }
 

@@ -22,7 +22,7 @@ public class CompanyController {
     }
 
     @GetMapping("/company")
-    List<Company> all(){
+    List<Company> allCompany(){
         return companyRepository.findAll();
     }
 
@@ -39,7 +39,7 @@ public class CompanyController {
     }
 
     @PutMapping("/company/{id}")
-    Company replaceCompany(@RequestBody Company newCompany, @PathVariable Long id) {
+    Company editCompany(@RequestBody Company newCompany, @PathVariable Long id) {
 
         return companyRepository.findById(id)
                 .map(company -> {
@@ -48,10 +48,7 @@ public class CompanyController {
                     company.setContact(newCompany.getContact());
                     return companyRepository.save(company);
                 })
-                .orElseGet(() -> {
-                    newCompany.setCompanyId(id);
-                    return companyRepository.save(newCompany);
-                });
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @DeleteMapping("/company/{id}")
@@ -60,7 +57,7 @@ public class CompanyController {
     }
 
     @GetMapping("/company/companycourse/{id}")
-    public List<Course> history(@PathVariable("id") Long id){
+    public List<Course> companyCourse(@PathVariable("id") Long id){
         return courseRepository.findCourseByCompany_CompanyId(id);
     }
 }

@@ -27,7 +27,7 @@ public class CourseController {
     }
 
     @GetMapping("/course")
-    List<Course> all(){
+    List<Course> allCourses(){
         List<Course>courses = courseRepository.findAll();
         System.out.println(courses);
         return courseRepository.findAll();
@@ -45,14 +45,14 @@ public class CourseController {
     }
 
     @GetMapping("/course/{id}")
-    Course one(@PathVariable Long id) {
+    Course oneCourse(@PathVariable Long id) {
 
         return courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
     }
 
     @PutMapping("/course/{id}")
-    Course replaceCompany(@RequestBody Course newCourse, @PathVariable Long id) {
+    Course editCourse(@RequestBody Course newCourse, @PathVariable Long id) {
 
         return courseRepository.findById(id)
                 .map(course -> {
@@ -65,10 +65,8 @@ public class CourseController {
                     course.setEmployee(newCourse.getEmployee());
                     return courseRepository.save(course);
                 })
-                .orElseGet(() -> {
-                    newCourse.setCourseId(id);
-                    return courseRepository.save(newCourse);
-                });
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
     }
 
 
@@ -78,16 +76,5 @@ public class CourseController {
     }
 
 
-    @PutMapping("/courseaddemp/{id}")
-    Course addEmp(@RequestBody Course newCourse, @PathVariable Long id) {
-        return courseRepository.findById(id)
-                .map(course -> {
-                    course.setEmployee(newCourse.getEmployee());
-                    return courseRepository.save(course);
-                })
-                .orElseGet(() -> {
-                    newCourse.setCourseId(id);
-                    return courseRepository.save(newCourse);
-                });
-    }
+
 }

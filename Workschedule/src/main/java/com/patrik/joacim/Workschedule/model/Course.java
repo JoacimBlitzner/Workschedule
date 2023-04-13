@@ -23,6 +23,8 @@ public class Course {
     private LocalDate startDate;
     @Column(name = "stopdate")
     private LocalDate stopDate;
+    @Column(name = "coursebooked")
+    private boolean coursebooked;
 
     @ManyToOne()
     @JsonBackReference(value = "company-course")
@@ -36,13 +38,14 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long courseId, String courseName, String courseClass, int workHour, LocalDate startDate, LocalDate stopDate, Company company, Employee employee) {
+    public Course(Long courseId, String courseName, String courseClass, int workHour, LocalDate startDate, LocalDate stopDate, boolean coursebooked, Company company, Employee employee) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseClass = courseClass;
         this.workHour = workHour;
         this.startDate = startDate;
         this.stopDate = stopDate;
+        this.coursebooked = coursebooked;
         this.company = company;
         this.employee = employee;
     }
@@ -95,6 +98,14 @@ public class Course {
         this.stopDate = stopDate;
     }
 
+    public boolean isCoursebooked() {
+        return coursebooked;
+    }
+
+    public void setCoursebooked(boolean coursebooked) {
+        this.coursebooked = coursebooked;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -120,6 +131,7 @@ public class Course {
                 ", workHour=" + workHour +
                 ", startDate=" + startDate +
                 ", stopDate=" + stopDate +
+                ", coursebooked=" + coursebooked +
                 '}';
     }
 }

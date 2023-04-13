@@ -22,8 +22,7 @@ public class Employee {
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "coursebooked")
-    private boolean coursebooked;
+
 
     @OneToMany(mappedBy = "employee",
             cascade = CascadeType.ALL,
@@ -38,13 +37,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long employeeId, String firstName, String lastName, int workTime, boolean active, boolean coursebooked, List<Course> courses) {
+    public Employee(long employeeId, String firstName, String lastName, int workTime, boolean active, List<Course> courses) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.workTime = workTime;
         this.active = active;
-        this.coursebooked = coursebooked;
         this.courses = courses;
     }
 
@@ -88,14 +86,6 @@ public class Employee {
         this.active = active;
     }
 
-    public boolean isCoursebooked() {
-        return coursebooked;
-    }
-
-    public void setCoursebooked(boolean coursebooked) {
-        this.coursebooked = coursebooked;
-    }
-
     public List<Course> getCourses() {
         return courses;
     }
@@ -112,7 +102,6 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", workTime=" + workTime +
                 ", active=" + active +
-                ", coursebooked=" + coursebooked +
                 ", courses=" + courses +
                 '}';
     }
