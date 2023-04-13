@@ -28,6 +28,7 @@ public class CourseController {
 
     @GetMapping("/course")
     List<Course> allCourses(){
+
         List<Course>courses = courseRepository.findAll();
         System.out.println(courses);
         return courseRepository.findAll();
@@ -41,6 +42,7 @@ public class CourseController {
         Company company = companyRepository.findById(newCourse.getCompany().getCompanyId()).orElseThrow(() -> new RuntimeException("COMPANY i course"));
         newCourse.setEmployee(employee);
         newCourse.setCompany(company);
+        newCourse.setCoursebooked(false);
         return courseRepository.save(newCourse);
     }
 
