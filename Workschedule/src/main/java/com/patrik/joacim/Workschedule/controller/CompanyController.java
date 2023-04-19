@@ -48,7 +48,7 @@ public class CompanyController {
                     company.setContact(newCompany.getContact());
                     return companyRepository.save(company);
                 })
-                .orElseThrow(() -> new EmployeeNotFoundException(id));
+                .orElseThrow(() -> new CompanyNotFoundException(id));
     }
 
     @DeleteMapping("/company/{id}")
